@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 자동 디자인 생성기</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cloudflare.com"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>📇 AI 명함 & 상품소개서 생성기</h1>
+        
+        <div class="form-group">
+            <label for="apiKey">1. GitHub Personal Access Token 입력</label>
+            <input type="password" id="apiKey" placeholder="ghp_... 또는 github_pat_...">
+            <small style="color: #666; display: block; margin-top: 5px;">깃허브 백엔드 서버(Actions)를 깨우기 위해 필요합니다.</small>
+        </div>
+
+        <div class="form-group">
+            <label for="type">2. 제작 종류 선택</label>
+            <select id="type">
+                <option value="business_card">명함 (90x50mm)</option>
+                <option value="brochure">상품소개서 (A4)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="concept">3. 들어갈 내용 및 스타일 입력</label>
+            <textarea id="concept" rows="4" placeholder="예: 회사명 홍길동 / 직책 팀장 / 번호 010-1234-5678 / 이메일 test@email.com / 모던하고 깔끔한 블랙 앤 화이트 톤으로 만들어줘."></textarea>
+        </div>
+
+        <button id="generateBtn">AI 디자인 생성 요청</button>
+
+        <hr>
+
+        <h2>🎨 디자인 결과물 (미리보기)</h2>
+        <div id="printArea">
+            <div id="designOutput" class="card-preview">
+                <p style="color: #aaa; text-align: center; padding: 40px 0;">내용을 입력하고 생성 버튼을 누르면 여기에 디자인이 나타납니다.</p>
+            </div>
+        </div>
+
+        <button id="downloadBtn" style="display:none; background-color: #28a745;">🖨️ 인쇄용 PDF 다운로드</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
