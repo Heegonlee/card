@@ -1,0 +1,30 @@
+name: Generate Design AI Backend
+on:
+  repository_dispatch:
+    types: [request-design]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }} # 푸시 권한을 위해 기본 토큰 사용
+
+      - name: Initialize Python environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install server packages
+        run: |
+          pip install requests
+
+      - name: Execute Python AI Handler
+        env:
+          MONOROUTER_KEY: ${{ secrets.MONOROUTER_KEY }}
+          CLIENT_CONCEPT: ${{ github.event.client_payload.concept }}
+          CLIENT_TYPE: ${{ github.event.client_payload.type }}
+        run: |
+          python run_api.py

@@ -1,0 +1,43 @@
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #f5f6fa;
+    margin: 0; padding: 20px;
+}
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+.form-group {
+    margin-bottom: 15px;
+}
+label {
+    display: block; font-weight: bold; margin-bottom: 5px;
+}
+input, select, textarea {
+    width: 100%; padding: 10px; box-sizing: border-box;
+    border: 1px solid #ddd; border-radius: 5px;
+}
+button {
+    width: 100%; padding: 12px; background: #007bff; color: white;
+    border: none; border-radius: 5px; font-size: 16px; cursor: pointer;
+    margin-top: 10px;
+}
+button:hover { background: #0056b3; }
+
+#printArea {
+    display: flex; justify-content: center; margin: 20px 0;
+}
+.business_card_size {
+    width: 340px; height: 190px;
+    border: 1px solid #000; box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-sizing: border-box; overflow: hidden;
+}
+.brochure_size {
+    width: 595px; height: 842px;
+    border: 1px solid #000; box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-sizing: border-box; overflow: hidden;
+}
