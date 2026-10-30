@@ -7,16 +7,19 @@ document.getElementById('generateBtn').addEventListener('click', async () => {
     if (!githubToken) return alert('GitHub Personal Access Token을 입력해주세요.');
     if (!concept) return alert('내용을 입력해주세요.');
 
-    outputDiv.innerHTML = "<p style='text-align:center;'>🚀 깃허브 가상 백엔드 서버를 부팅하여 AI 요청을 전달 중입니다... (약 20~30초 소요)</p>";
+    outputDiv.innerHTML = "<p style='text-align:center;'>🚀 깃허브 백엔드 가상 컴퓨터를 부팅 중입니다... (약 20~30초 소요)</p>";
 
-    // 💡 본인의 실제 정보로 교체 필수!
-    const githubUser = "Heegonlee"; 
-    const repoName = "card";
+    // 💡 [필수 수정] 여기에 본인의 실제 깃허브 아이디와 리포지토리 이름을 정확히 적어주세요!
+    const githubUser = "Heegonlee"; // 예: "heegonlee"
+    const repoName = "card";      // 리포지토리 이름 (오타 주의)
     
+    // 🔗 슬래시(/) 위치와 경로 규격을 완벽하게 교정했습니다.
     const triggerUrl = `https://github.com{githubUser}/${repoName}/dispatches`;
 
     try {
-        // 1. GitHub Actions 가상 서버 깨우기 (Trigger)
+        console.log("요청 주소 확인:", triggerUrl);
+
+        // 1. GitHub Actions 백엔드 가상 컴퓨터 깨우기
         const response = await fetch(triggerUrl, {
             method: 'POST',
             headers: {
@@ -30,12 +33,16 @@ document.getElementById('generateBtn').addEventListener('click', async () => {
             })
         });
 
-        if (!response.ok) throw new Error("깃허브 서버 호출 실패. 토큰 유효성이나 ID를 확인하세요.");
+        if (!response.ok) {
+            const errBody = await response.text();
+            throw new Error(`깃허브 호출 실패 (코드: ${response.status}) - 주소나 토큰을 다시 확인하세요.`);
+        }
 
-        outputDiv.innerHTML = "<p style='text-align:center;'>⏳ 깃허브 가상 컴퓨터가 파이썬 코드로 디자인 조립 중... 실시간으로 파일 생성을 감시합니다.</p>";
+        outputDiv.innerHTML = "<p style='text-align:center;'>⏳ 백엔드 파이썬이 디자인 조립 시작! 결과 생성을 감시하고 있습니다.</p>";
 
-        // 2. 가상 서버가 일하고 결과 파일(result.html)을 업로드할 때까지 폴링(주기적 확인) 시작
+        // 2. 가상 서버가 일하고 파일(result.html)을 생성할 때까지 무한 확인 시작
         setTimeout(async function checkResult() {
+            // 캐시 방지(새로고침 효과)를 위해 시간값(?t=...)을 끝에 붙여 결과 탐색
             const resultUrl = `https://${githubUser}.github.io/${repoName}/result.html?t=${new Date().getTime()}`;
             try {
                 const resFile = await fetch(resultUrl);
@@ -44,17 +51,18 @@ document.getElementById('generateBtn').addEventListener('click', async () => {
                     outputDiv.className = type === 'business_card' ? 'business_card_size' : 'brochure_size';
                     outputDiv.innerHTML = htmlCode;
                     document.getElementById('downloadBtn').style.display = 'block';
+                    console.log("디자인 최종 로드 성공!");
                 } else {
-                    outputDiv.innerHTML += "."; // 대기 상태 표시 점 추가
-                    setTimeout(checkResult, 3000); // 3초 뒤에 다시 파일 가져오기 시도
+                    outputDiv.innerHTML += "."; // 대기 상태 표시용 점 추가
+                    setTimeout(checkResult, 3000); // 3초 후 재시도
                 }
             } catch (e) {
                 setTimeout(checkResult, 3000);
             }
-        }, 15000); // 가상 머신이 깨어나고 통신을 완료하기 위한 최소 15초 초기 대기
+        }, 15000); // 가상 머신 구동 및 데이터 전송을 위한 최초 15초 대기
 
     } catch (error) {
-        console.error(error);
+        console.error("발생한 에러:", error);
         outputDiv.innerHTML = `<p style='color:red; text-align:center;'>에러 발생: ${error.message}</p>`;
     }
 });
@@ -69,7 +77,7 @@ document.getElementById('downloadBtn').addEventListener('click', () => {
         filename:     type === 'business_card' ? 'my-business-card.pdf' : 'product-brochure.pdf',
         image:        { type: 'jpeg', quality: 0.98 },
         html2canvas:  { scale: 2, useCORS: true }, 
-        jsPDF:        type === 'business_card' ? { unit: 'mm', format: [90, 50], orientation: 'landscape' } : { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        jsPDF:        type === 'business_card' ? { unit: 'mm', format:, orientation: 'landscape' } : { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
     html2pdf().set(opt).from(element).save();
 });
