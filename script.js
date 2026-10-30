@@ -10,8 +10,8 @@ document.getElementById('generateBtn').addEventListener('click', async () => {
     outputDiv.innerHTML = "<p style='text-align:center;'>🚀 깃허브 백엔드 가상 컴퓨터를 부팅 중입니다... (약 20~30초 소요)</p>";
 
     // 💡 [필수 수정] 여기에 본인의 실제 깃허브 아이디와 리포지토리 이름을 정확히 적어주세요!
-    const githubUser = "Heegonlee"; // 예: "heegonlee"
-    const repoName = "card";      // 리포지토리 이름 (오타 주의)
+    const githubUser = "YOUR_GITHUB_USERNAME"; // 예: "heegonlee"
+    const repoName = "ai-design-service";      // 리포지토리 이름 (오타 주의)
     
     // 🔗 슬래시(/) 위치와 경로 규격을 완벽하게 교정했습니다.
     const triggerUrl = `https://github.com{githubUser}/${repoName}/dispatches`;
